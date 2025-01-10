@@ -20,7 +20,15 @@ async function fetchUsers() {
 }
 
 // TODO: getUsers 함수를 작성하세요.
-async function getUsers() {}
+async function getUsers() {
+  let data = await fetchUsers();
+  // console.log(data);
+
+  let idArr = data.map((d) => d.name);
+  // console.log(idArr, "마");
+
+  return idArr;
+}
 
 // export를 수정하지 마세요.
 export { getUsers };
