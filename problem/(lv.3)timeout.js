@@ -12,20 +12,12 @@
  */
 
 async function timeOut(promise, ms) {
-  if (ms === 0) {
-    throw new Error("timeout");
-  }
-  let timer;
-  return Promise.race([
-    promise.finally(() => clearInterval(timer)),
-    () => {
-      new Promise((res, rej) => {
-        timer = setTimeout(() => {
-          rej("timeout");
-        }, ms);
-      });
-    },
-  ]);
+  const timePromise = new Promise((res, rej) => {
+    setTimeout(() => {
+      rej("timeout");
+    }, ms);
+  });
+  return Promise.race([promise, timePromise]);
 }
 
 // export를 수정하지 마세요.
